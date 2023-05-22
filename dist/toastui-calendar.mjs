@@ -31,7 +31,7 @@ var __objRest = (source, exclude) => {
 };
 /*!
  * TOAST UI Calendar 2nd Edition
- * @version 2.1.3 | Tue May 16 2023
+ * @version 2.1.3 | Mon May 22 2023
  * @author NHN Cloud FE Development Lab <dl_javascript@nhn.com>
  * @license MIT
  */
@@ -6809,9 +6809,13 @@ const classNames$i = {
   content: cls("content"),
   eventTitle: cls("event-title")
 };
-function EventDetailSectionHeader({ event }) {
-  console.log({ event });
+function EventDetailSectionHeader({ event, userData, backpackUrl }) {
+  const eventId = event == null ? void 0 : event.id;
   return /* @__PURE__ */ y$3("div", {
+    className: "row"
+  }, /* @__PURE__ */ y$3("div", {
+    className: "col"
+  }, /* @__PURE__ */ y$3("div", {
     className: classNames$i.sectionHeader
   }, /* @__PURE__ */ y$3("div", {
     className: classNames$i.eventTitle
@@ -6825,7 +6829,17 @@ function EventDetailSectionHeader({ event }) {
     template: "popupDetailDate",
     param: event,
     as: "span"
-  })));
+  })))), /* @__PURE__ */ y$3("div", {
+    className: "col"
+  }, /* @__PURE__ */ y$3("div", {
+    class: "d-print-none with-border float-right"
+  }, /* @__PURE__ */ y$3("a", {
+    href: backpackUrl + '/collab-registration?event=%5B"' + eventId + '"%5D',
+    class: "btn btn-primary",
+    "data-style": "zoom-in"
+  }, /* @__PURE__ */ y$3("span", {
+    class: "ladda-label"
+  }, "See Registrations")))));
 }
 const SEE_MORE_POPUP_SLOT_CLASS_NAME = cls("see-more-popup-slot");
 const EVENT_FORM_POPUP_SLOT_CLASS_NAME = cls("event-form-popup-slot");
@@ -7989,7 +8003,7 @@ function calculatePopupPosition$1(eventRect, layoutRect, popupRect) {
   }
   return [
     Math.max(top, layoutRect.top) + window.scrollY - 110,
-    Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 250 : 25)
+    Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 255 : 25)
   ];
 }
 function calculatePopupArrowPosition(eventRect, layoutRect, popupRect) {
@@ -8110,7 +8124,9 @@ function EventDetailPopup() {
     }, /* @__PURE__ */ y$3("div", {
       className: classNames$h.detailContainer
     }, /* @__PURE__ */ y$3(EventDetailSectionHeader, {
-      event
+      event,
+      userData,
+      backpackUrl
     }), /* @__PURE__ */ y$3(EventDetailSectionDetail, {
       event,
       userData,

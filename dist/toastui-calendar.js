@@ -1,6 +1,6 @@
 /*!
  * TOAST UI Calendar 2nd Edition
- * @version 2.1.3 | Tue May 16 2023
+ * @version 2.1.3 | Mon May 22 2023
  * @author NHN Cloud FE Development Lab <dl_javascript@nhn.com>
  * @license MIT
  */
@@ -9833,12 +9833,16 @@ const eventDetailSectionHeader_classNames = {
 };
 function EventDetailSectionHeader(_ref) {
   let {
-    event
+    event,
+    userData,
+    backpackUrl
   } = _ref;
-  console.log({
-    event
-  });
+  const eventId = event?.id;
   return y("div", {
+    className: "row"
+  }, y("div", {
+    className: "col"
+  }, y("div", {
     className: eventDetailSectionHeader_classNames.sectionHeader
   }, y("div", {
     className: eventDetailSectionHeader_classNames.eventTitle
@@ -9852,7 +9856,17 @@ function EventDetailSectionHeader(_ref) {
     template: "popupDetailDate",
     param: event,
     as: "span"
-  })));
+  })))), y("div", {
+    className: "col"
+  }, y("div", {
+    class: "d-print-none with-border float-right"
+  }, y("a", {
+    href: backpackUrl + '/collab-registration?event=%5B"' + eventId + '"%5D',
+    class: "btn btn-primary",
+    "data-style": "zoom-in"
+  }, y("span", {
+    class: "ladda-label"
+  }, "See Registrations")))));
 }
 ;// CONCATENATED MODULE: ./src/constants/popup.ts
 
@@ -9981,14 +9995,21 @@ function calculatePopupPosition(eventRect, layoutRect, popupRect) {
   if (outLeftLayout) {
     left = eventRect.left - popupRect.width;
   }
+  // console.log({left, layoutRect: layoutRect.left, max: Math.max(left, layoutRect.left)});
+
   return [Math.max(top, layoutRect.top) + window.scrollY - 110,
   // Math.max(left, layoutRect.left) + window.scrollX - 225,
-  Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 250 : 25)];
+  // left > layoutRect.left ? (Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 25 : -225)) : (Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 255 : 25)),
+  Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 255 : 25)
+  // layoutRect.left) + window.scrollX - (outLeftLayout ? 25 : -225),
+  ];
 }
+
 function calculatePopupArrowPosition(eventRect, layoutRect, popupRect) {
   let top = eventRect.top + eventRect.height / 2 + window.scrollY;
   const popupLeft = eventRect.left + eventRect.width;
   const isOutOfLayout = popupLeft + popupRect.width > layoutRect.left + layoutRect.width;
+  // console.log({zxc: popupLeft + popupRect.width, qwe: layoutRect.left + layoutRect.width});
   const direction = isOutOfLayout ? DetailPopupArrowDirection.right : DetailPopupArrowDirection.left;
   top = top - 110;
   return {
@@ -10118,7 +10139,9 @@ function EventDetailPopup() {
   }, y("div", {
     className: eventDetailPopup_classNames.detailContainer
   }, y(EventDetailSectionHeader, {
-    event: event
+    event: event,
+    userData: userData,
+    backpackUrl: backpackUrl
   }), y(EventDetailSectionDetail, {
     event: event,
     userData: userData,

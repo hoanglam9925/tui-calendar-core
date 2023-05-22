@@ -51,11 +51,14 @@ function calculatePopupPosition(eventRect: Rect, layoutRect: Rect, popupRect: Re
   if (outLeftLayout) {
     left = eventRect.left - popupRect.width;
   }
+  // console.log({left, layoutRect: layoutRect.left, max: Math.max(left, layoutRect.left)});
 
   return [
     Math.max(top, layoutRect.top) + window.scrollY - 110,
     // Math.max(left, layoutRect.left) + window.scrollX - 225,
-    Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 250 : 25),
+    // left > layoutRect.left ? (Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 25 : -225)) : (Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 255 : 25)),
+    Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 255 : 25),
+    // layoutRect.left) + window.scrollX - (outLeftLayout ? 25 : -225),
   ];
 }
 
@@ -64,6 +67,7 @@ function calculatePopupArrowPosition(eventRect: Rect, layoutRect: Rect, popupRec
   const popupLeft = eventRect.left + eventRect.width;
 
   const isOutOfLayout = popupLeft + popupRect.width > layoutRect.left + layoutRect.width;
+  // console.log({zxc: popupLeft + popupRect.width, qwe: layoutRect.left + layoutRect.width});
   const direction = isOutOfLayout
     ? DetailPopupArrowDirection.right
     : DetailPopupArrowDirection.left;
@@ -196,7 +200,7 @@ export function EventDetailPopup() {
   return createPortal(
     <div role="dialog" className={classNames.popupContainer} ref={popupContainerRef} style={style}>
       <div className={classNames.detailContainer}>
-        <EventDetailSectionHeader event={event} />
+        <EventDetailSectionHeader event={event} userData={userData} backpackUrl={backpackUrl} />
         <EventDetailSectionDetail event={event} userData={userData} backpackUrl={backpackUrl} />
         {!isReadOnly && (
           <div className={classNames.sectionButton}>
