@@ -1,6 +1,6 @@
 /*!
  * TOAST UI Calendar 2nd Edition
- * @version 2.1.3 | Mon May 22 2023
+ * @version 2.1.3 | Wed May 24 2023
  * @author NHN Cloud FE Development Lab <dl_javascript@nhn.com>
  * @license MIT
  */
@@ -9835,13 +9835,14 @@ function EventDetailSectionHeader(_ref) {
   let {
     event,
     userData,
-    backpackUrl
+    backpackUrl,
+    templateCsvUrl
   } = _ref;
   const eventId = event?.id;
   return y("div", {
     className: "row"
   }, y("div", {
-    className: "col"
+    className: "col-7"
   }, y("div", {
     className: eventDetailSectionHeader_classNames.sectionHeader
   }, y("div", {
@@ -9856,17 +9857,7 @@ function EventDetailSectionHeader(_ref) {
     template: "popupDetailDate",
     param: event,
     as: "span"
-  })))), y("div", {
-    className: "col"
-  }, y("div", {
-    class: "d-print-none with-border float-right"
-  }, y("a", {
-    href: backpackUrl + '/collab-registration?event=%5B"' + eventId + '"%5D',
-    class: "btn btn-primary",
-    "data-style": "zoom-in"
-  }, y("span", {
-    class: "ladda-label"
-  }, "See Registrations")))));
+  })))));
 }
 ;// CONCATENATED MODULE: ./src/constants/popup.ts
 
@@ -10129,8 +10120,10 @@ function EventDetailPopup() {
   const userData = options?.allOptions?.userData || null;
   const token = options?.allOptions?.token;
   const backpackUrl = options?.allOptions?.backpackUrl;
+  const templateCsvUrl = options?.allOptions?.templateCsvUrl;
   const editUrl = `${backpackUrl}/collab-event/${event.id}/edit`;
   const deleteURl = `${backpackUrl}/collab-event/${event.id}`;
+  const eventId = event?.id;
   return compat_module_z(y("div", {
     role: "dialog",
     className: eventDetailPopup_classNames.popupContainer,
@@ -10141,7 +10134,8 @@ function EventDetailPopup() {
   }, y(EventDetailSectionHeader, {
     event: event,
     userData: userData,
-    backpackUrl: backpackUrl
+    backpackUrl: backpackUrl,
+    templateCsvUrl: templateCsvUrl
   }), y(EventDetailSectionDetail, {
     event: event,
     userData: userData,
@@ -10174,7 +10168,53 @@ function EventDetailPopup() {
   }, y(Template, {
     template: "popupDelete",
     as: "span"
-  }))))), y("div", {
+  })))), y("div", {
+    className: "row"
+  }, y("div", {
+    className: "d-print-none with-border col d-flex justify-content-center align-items-center",
+    style: {
+      minWidth: "155px"
+    }
+  }, y("a", {
+    href: backpackUrl + '/collab-registration?event=%5B"' + eventId + '"%5D',
+    className: "btn btn-primary",
+    "data-style": "zoom-in",
+    style: {
+      width: "100%"
+    }
+  }, y("span", {
+    class: "ladda-label"
+  }, "See Registrations"))), y("div", {
+    className: "d-print-none with-border d-flex col d-flex justify-content-center align-items-center",
+    style: {
+      minWidth: "155px"
+    }
+  }, y("a", {
+    href: backpackUrl + '/registrationImportView?event_id=' + eventId,
+    className: "btn btn-primary",
+    "data-style": "zoom-in",
+    style: {
+      width: "100%"
+    }
+  }, y("span", {
+    class: "ladda-label"
+  }, "Bulk Upload (CSV)")))), y("div", {
+    className: "d-print-none with-border d-flex justify-content-center align-items-center",
+    style: {
+      minWidth: "155px",
+      marginTop: "10px",
+      marginBottom: "10px"
+    }
+  }, y("a", {
+    href: templateCsvUrl,
+    class: "btn btn-primary",
+    "data-style": "zoom-in",
+    style: {
+      width: "100%"
+    }
+  }, y("span", {
+    className: "ladda-label"
+  }, "Download Bulk Upload Template (CSV)")))), y("div", {
     className: eventDetailPopup_classNames.topLine,
     style: {
       background: calendarColor.backgroundColor

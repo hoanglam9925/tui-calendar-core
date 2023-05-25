@@ -4,6 +4,7 @@ interface Props {
     event: EventModel;
     userData: any;
     backpackUrl: any;
+    templateCsvUrl: any;
 }
-export declare function EventDetailSectionHeader({ event, userData, backpackUrl }: Props): h.JSX.Element;
+export declare function EventDetailSectionHeader({ event, userData, backpackUrl, templateCsvUrl }: Props): h.JSX.Element;
 export {};
