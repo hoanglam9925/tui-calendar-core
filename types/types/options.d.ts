@@ -50,6 +50,7 @@ export interface CalendarColor {
     backgroundColor?: string;
     dragBackgroundColor?: string;
     borderColor?: string;
+    shouldOpacity?: string;
 }
 export interface CalendarInfo extends CalendarColor {
     id: string;

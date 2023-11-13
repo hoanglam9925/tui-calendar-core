@@ -22227,7 +22227,8 @@ var DEFAULT_EVENT_COLORS = {
   color: '#000',
   backgroundColor: '#a1b56c',
   dragBackgroundColor: '#a1b56c',
-  borderColor: '#000'
+  borderColor: '#000',
+  shouldOpacity: '0'
 };
 var TIME_EVENT_CONTAINER_MARGIN_LEFT = 2;
 var COLLAPSED_DUPLICATE_EVENT_WIDTH_PX = 9;
@@ -28571,7 +28572,8 @@ function useCalendarColor(model) {
       color: calendar === null || calendar === void 0 ? void 0 : calendar.color,
       borderColor: calendar === null || calendar === void 0 ? void 0 : calendar.borderColor,
       backgroundColor: calendar === null || calendar === void 0 ? void 0 : calendar.backgroundColor,
-      dragBackgroundColor: calendar === null || calendar === void 0 ? void 0 : calendar.dragBackgroundColor
+      dragBackgroundColor: calendar === null || calendar === void 0 ? void 0 : calendar.dragBackgroundColor,
+      shouldOpacity: calendar === null || calendar === void 0 ? void 0 : calendar.shouldOpacity
     };
   }, [calendar]);
 }
@@ -28856,7 +28858,6 @@ function getBorderRadius(exceedLeft, exceedRight) {
   return "".concat(leftBorderRadius, " ").concat(rightBorderRadius, " ").concat(rightBorderRadius, " ").concat(leftBorderRadius);
 }
 function getEventItemStyle(_ref) {
-  var _options$allOptions, _uiModel$model, _userData$userDataInd;
   var uiModel = _ref.uiModel,
     flat = _ref.flat,
     eventHeight = _ref.eventHeight,
@@ -28868,19 +28869,8 @@ function getEventItemStyle(_ref) {
     color = _getEventColors.color,
     backgroundColor = _getEventColors.backgroundColor,
     dragBackgroundColor = _getEventColors.dragBackgroundColor,
-    borderColor = _getEventColors.borderColor;
-  var options = useStore(optionsSelector);
-  var userData = (options === null || options === void 0 ? void 0 : (_options$allOptions = options.allOptions) === null || _options$allOptions === void 0 ? void 0 : _options$allOptions.userData) || [];
-  var modelId = (uiModel === null || uiModel === void 0 ? void 0 : (_uiModel$model = uiModel.model) === null || _uiModel$model === void 0 ? void 0 : _uiModel$model.id) || -1;
-  var userDataIndex = -1;
-  for (var index = 0; index < userData.length; index++) {
-    var element = userData[index];
-    if (element.id == modelId) {
-      userDataIndex = index;
-      break;
-    }
-  }
-  var shouldOpacity = !((_userData$userDataInd = userData[userDataIndex]) !== null && _userData$userDataInd !== void 0 && _userData$userDataInd.enabled);
+    borderColor = _getEventColors.borderColor,
+    shouldOpacity = _getEventColors.shouldOpacity;
   var defaultItemStyle = {
     color: color,
     backgroundColor: isDraggingTarget ? dragBackgroundColor : backgroundColor,
@@ -28889,7 +28879,7 @@ function getEventItemStyle(_ref) {
     overflow: 'hidden',
     height: eventHeight,
     lineHeight: toPx(eventHeight),
-    opacity: shouldOpacity ? 0.5 : 1
+    opacity: shouldOpacity === '1' ? 0.5 : 1
   };
   var margins = getMargins(flat);
   return flat ? horizontalEvent_objectSpread({
@@ -28961,10 +28951,10 @@ function HorizontalEvent(_ref4) {
     isDraggingTarget = _useState2[0],
     setIsDraggingTarget = _useState2[1];
   var eventContainerRef = _(null);
-  var _uiModel$model2 = uiModel.model,
-    isReadOnly = _uiModel$model2.isReadOnly,
-    id = _uiModel$model2.id,
-    calendarId = _uiModel$model2.calendarId;
+  var _uiModel$model = uiModel.model,
+    isReadOnly = _uiModel$model.isReadOnly,
+    id = _uiModel$model.id,
+    calendarId = _uiModel$model.calendarId;
   var isDraggingGuideEvent = isPresent(resizingWidth) || isPresent(movingLeft);
   var isDraggableEvent = !isReadOnlyCalendar && !isReadOnly && !isDraggingGuideEvent;
   var startDragEvent = function startDragEvent(className) {
@@ -32250,7 +32240,8 @@ function getStyles(_ref) {
     color = _getEventColors.color,
     backgroundColor = _getEventColors.backgroundColor,
     borderColor = _getEventColors.borderColor,
-    dragBackgroundColor = _getEventColors.dragBackgroundColor;
+    dragBackgroundColor = _getEventColors.dragBackgroundColor,
+    shouldOpacity = _getEventColors.shouldOpacity;
   var containerStyle = {
     width: getContainerWidth(duplicateWidth || width, marginLeft),
     height: "calc(".concat(toPercent(Math.max(height, minHeight)), " - ").concat(defaultMarginBottom, "px)"),
@@ -32261,8 +32252,8 @@ function getStyles(_ref) {
     marginLeft: marginLeft,
     color: color,
     background: isDraggingTarget ? dragBackgroundColor : backgroundColor,
-    // opacity: shoudOpacity ? 0.5 : 1,
-    opacity: isDraggingTarget ? 0.5 : 1,
+    opacity: shouldOpacity ? 0.5 : 1,
+    // opacity: isDraggingTarget ? 0.5 : 1,
     zIndex: hasNextStartTime ? 1 : 0
   };
   var goingDurationStyle = {

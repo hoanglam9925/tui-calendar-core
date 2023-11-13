@@ -883,7 +883,8 @@ const DEFAULT_EVENT_COLORS = {
   color: "#000",
   backgroundColor: "#a1b56c",
   dragBackgroundColor: "#a1b56c",
-  borderColor: "#000"
+  borderColor: "#000",
+  shouldOpacity: "0"
 };
 const TIME_EVENT_CONTAINER_MARGIN_LEFT = 2;
 const COLLAPSED_DUPLICATE_EVENT_WIDTH_PX = 9;
@@ -5792,7 +5793,8 @@ function useCalendarColor(model) {
       color: calendar == null ? void 0 : calendar.color,
       borderColor: calendar == null ? void 0 : calendar.borderColor,
       backgroundColor: calendar == null ? void 0 : calendar.backgroundColor,
-      dragBackgroundColor: calendar == null ? void 0 : calendar.dragBackgroundColor
+      dragBackgroundColor: calendar == null ? void 0 : calendar.dragBackgroundColor,
+      shouldOpacity: calendar == null ? void 0 : calendar.shouldOpacity
     }),
     [calendar]
   );
@@ -5962,24 +5964,11 @@ function getEventItemStyle({
   isDraggingTarget,
   calendarColor
 }) {
-  var _a, _b, _c;
   const { exceedLeft, exceedRight } = uiModel;
-  const { color, backgroundColor, dragBackgroundColor, borderColor } = getEventColors(
+  const { color, backgroundColor, dragBackgroundColor, borderColor, shouldOpacity } = getEventColors(
     uiModel,
     calendarColor
   );
-  const options = useStore(optionsSelector);
-  const userData = ((_a = options == null ? void 0 : options.allOptions) == null ? void 0 : _a.userData) || [];
-  const modelId = ((_b = uiModel == null ? void 0 : uiModel.model) == null ? void 0 : _b.id) || -1;
-  let userDataIndex = -1;
-  for (let index = 0; index < userData.length; index++) {
-    const element = userData[index];
-    if (element.id == modelId) {
-      userDataIndex = index;
-      break;
-    }
-  }
-  const shouldOpacity = !((_c = userData[userDataIndex]) == null ? void 0 : _c.enabled);
   const defaultItemStyle = {
     color,
     backgroundColor: isDraggingTarget ? dragBackgroundColor : backgroundColor,
@@ -5988,7 +5977,7 @@ function getEventItemStyle({
     overflow: "hidden",
     height: eventHeight,
     lineHeight: toPx(eventHeight),
-    opacity: shouldOpacity ? 0.5 : 1
+    opacity: shouldOpacity === "1" ? 0.5 : 1
   };
   const margins = getMargins(flat);
   return flat ? __spreadValues({
@@ -15170,7 +15159,7 @@ function getStyles({
   const borderRadius = 2;
   const defaultMarginBottom = 2;
   const marginLeft = getMarginLeft(left);
-  const { color, backgroundColor, borderColor, dragBackgroundColor } = getEventColors(
+  const { color, backgroundColor, borderColor, dragBackgroundColor, shouldOpacity } = getEventColors(
     uiModel,
     calendarColor
   );
@@ -15184,7 +15173,7 @@ function getStyles({
     marginLeft,
     color,
     background: isDraggingTarget ? dragBackgroundColor : backgroundColor,
-    opacity: isDraggingTarget ? 0.5 : 1,
+    opacity: shouldOpacity ? 0.5 : 1,
     zIndex: hasNextStartTime ? 1 : 0
   };
   const goingDurationStyle = {

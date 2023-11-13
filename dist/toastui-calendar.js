@@ -13859,7 +13859,8 @@ const DEFAULT_EVENT_COLORS = {
   color: '#000',
   backgroundColor: '#a1b56c',
   dragBackgroundColor: '#a1b56c',
-  borderColor: '#000'
+  borderColor: '#000',
+  shouldOpacity: '0'
 };
 const TIME_EVENT_CONTAINER_MARGIN_LEFT = 2;
 const COLLAPSED_DUPLICATE_EVENT_WIDTH_PX = 9;
@@ -19196,7 +19197,8 @@ function useCalendarColor(model) {
     color: calendar?.color,
     borderColor: calendar?.borderColor,
     backgroundColor: calendar?.backgroundColor,
-    dragBackgroundColor: calendar?.dragBackgroundColor
+    dragBackgroundColor: calendar?.dragBackgroundColor,
+    shouldOpacity: calendar?.shouldOpacity
   }), [calendar]);
 }
 ;// CONCATENATED MODULE: ./src/constants/keyboard.ts
@@ -19411,20 +19413,9 @@ function getEventItemStyle(_ref) {
     color,
     backgroundColor,
     dragBackgroundColor,
-    borderColor
+    borderColor,
+    shouldOpacity
   } = getEventColors(uiModel, calendarColor);
-  const options = useStore(optionsSelector);
-  const userData = options?.allOptions?.userData || [];
-  const modelId = uiModel?.model?.id || -1;
-  let userDataIndex = -1;
-  for (let index = 0; index < userData.length; index++) {
-    const element = userData[index];
-    if (element.id == modelId) {
-      userDataIndex = index;
-      break;
-    }
-  }
-  const shouldOpacity = !userData[userDataIndex]?.enabled;
   const defaultItemStyle = {
     color,
     backgroundColor: isDraggingTarget ? dragBackgroundColor : backgroundColor,
@@ -19433,7 +19424,7 @@ function getEventItemStyle(_ref) {
     overflow: 'hidden',
     height: eventHeight,
     lineHeight: toPx(eventHeight),
-    opacity: shouldOpacity ? 0.5 : 1
+    opacity: shouldOpacity === '1' ? 0.5 : 1
   };
   const margins = getMargins(flat);
   return flat ? {
@@ -22246,7 +22237,8 @@ function getStyles(_ref) {
     color,
     backgroundColor,
     borderColor,
-    dragBackgroundColor
+    dragBackgroundColor,
+    shouldOpacity
   } = getEventColors(uiModel, calendarColor);
   const containerStyle = {
     width: getContainerWidth(duplicateWidth || width, marginLeft),
@@ -22258,8 +22250,8 @@ function getStyles(_ref) {
     marginLeft,
     color,
     background: isDraggingTarget ? dragBackgroundColor : backgroundColor,
-    // opacity: shoudOpacity ? 0.5 : 1,
-    opacity: isDraggingTarget ? 0.5 : 1,
+    opacity: shouldOpacity ? 0.5 : 1,
+    // opacity: isDraggingTarget ? 0.5 : 1,
     zIndex: hasNextStartTime ? 1 : 0
   };
   const goingDurationStyle = {
