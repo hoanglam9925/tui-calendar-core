@@ -18,7 +18,9 @@ import { isSameDate } from '@src/time/datetime';
 import { passConditionalProp } from '@src/utils/preact';
 import { isPresent } from '@src/utils/type';
 
+
 import type { CalendarColor } from '@t/options';
+import { event } from 'jquery';
 
 interface Props {
   uiModel: EventUIModel;
@@ -58,6 +60,20 @@ function getEventItemStyle({
     uiModel,
     calendarColor
   );
+  const options = useStore(optionsSelector);
+
+  const userData = options?.allOptions?.userData || [];
+  const modelId = uiModel?.model?.id || -1;
+  
+  let userDataIndex = -1;
+  for (let index = 0; index < userData.length; index++) {
+    const element = userData[index];
+    if (element.id == modelId) {
+      userDataIndex = index;
+      break;
+    }
+  }
+  const shouldOpacity = !userData[userDataIndex]?.enabled;
 
   const defaultItemStyle = {
     color,
@@ -67,7 +83,7 @@ function getEventItemStyle({
     overflow: 'hidden',
     height: eventHeight,
     lineHeight: toPx(eventHeight),
-    opacity: isDraggingTarget ? 0.5 : 1,
+    opacity: shouldOpacity ? 0.5 : 1,
   };
   const margins = getMargins(flat);
 

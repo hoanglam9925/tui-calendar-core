@@ -31,7 +31,7 @@ var __objRest = (source, exclude) => {
 };
 /*!
  * TOAST UI Calendar 2nd Edition
- * @version 2.1.3 | Wed Sep 06 2023
+ * @version 2.1.3 | Mon Nov 13 2023
  * @author NHN Cloud FE Development Lab <dl_javascript@nhn.com>
  * @license MIT
  */
@@ -5962,11 +5962,24 @@ function getEventItemStyle({
   isDraggingTarget,
   calendarColor
 }) {
+  var _a, _b, _c;
   const { exceedLeft, exceedRight } = uiModel;
   const { color, backgroundColor, dragBackgroundColor, borderColor } = getEventColors(
     uiModel,
     calendarColor
   );
+  const options = useStore(optionsSelector);
+  const userData = ((_a = options == null ? void 0 : options.allOptions) == null ? void 0 : _a.userData) || [];
+  const modelId = ((_b = uiModel == null ? void 0 : uiModel.model) == null ? void 0 : _b.id) || -1;
+  let userDataIndex = -1;
+  for (let index = 0; index < userData.length; index++) {
+    const element = userData[index];
+    if (element.id == modelId) {
+      userDataIndex = index;
+      break;
+    }
+  }
+  const shouldOpacity = !((_c = userData[userDataIndex]) == null ? void 0 : _c.enabled);
   const defaultItemStyle = {
     color,
     backgroundColor: isDraggingTarget ? dragBackgroundColor : backgroundColor,
@@ -5975,7 +5988,7 @@ function getEventItemStyle({
     overflow: "hidden",
     height: eventHeight,
     lineHeight: toPx(eventHeight),
-    opacity: isDraggingTarget ? 0.5 : 1
+    opacity: shouldOpacity ? 0.5 : 1
   };
   const margins = getMargins(flat);
   return flat ? __spreadValues({

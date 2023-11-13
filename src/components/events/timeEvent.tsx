@@ -100,6 +100,7 @@ function getStyles({
     marginLeft,
     color,
     background: isDraggingTarget ? dragBackgroundColor : backgroundColor,
+    // opacity: shoudOpacity ? 0.5 : 1,
     opacity: isDraggingTarget ? 0.5 : 1,
     zIndex: hasNextStartTime ? 1 : 0,
   };

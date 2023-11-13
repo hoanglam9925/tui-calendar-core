@@ -1,6 +1,6 @@
 /*!
  * TOAST UI Calendar 2nd Edition
- * @version 2.1.3 | Wed Sep 06 2023
+ * @version 2.1.3 | Mon Nov 13 2023
  * @author NHN Cloud FE Development Lab <dl_javascript@nhn.com>
  * @license MIT
  */
@@ -19413,6 +19413,18 @@ function getEventItemStyle(_ref) {
     dragBackgroundColor,
     borderColor
   } = getEventColors(uiModel, calendarColor);
+  const options = useStore(optionsSelector);
+  const userData = options?.allOptions?.userData || [];
+  const modelId = uiModel?.model?.id || -1;
+  let userDataIndex = -1;
+  for (let index = 0; index < userData.length; index++) {
+    const element = userData[index];
+    if (element.id == modelId) {
+      userDataIndex = index;
+      break;
+    }
+  }
+  const shouldOpacity = !userData[userDataIndex]?.enabled;
   const defaultItemStyle = {
     color,
     backgroundColor: isDraggingTarget ? dragBackgroundColor : backgroundColor,
@@ -19421,7 +19433,7 @@ function getEventItemStyle(_ref) {
     overflow: 'hidden',
     height: eventHeight,
     lineHeight: toPx(eventHeight),
-    opacity: isDraggingTarget ? 0.5 : 1
+    opacity: shouldOpacity ? 0.5 : 1
   };
   const margins = getMargins(flat);
   return flat ? {
@@ -22246,6 +22258,7 @@ function getStyles(_ref) {
     marginLeft,
     color,
     background: isDraggingTarget ? dragBackgroundColor : backgroundColor,
+    // opacity: shoudOpacity ? 0.5 : 1,
     opacity: isDraggingTarget ? 0.5 : 1,
     zIndex: hasNextStartTime ? 1 : 0
   };

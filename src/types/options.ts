@@ -63,6 +63,7 @@ export interface CalendarColor {
   backgroundColor?: string;
   dragBackgroundColor?: string;
   borderColor?: string;
+  // shoudOpacity?: any;
 }
 
 export interface CalendarInfo extends CalendarColor {
