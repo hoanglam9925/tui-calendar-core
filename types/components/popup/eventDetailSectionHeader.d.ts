@@ -5,6 +5,8 @@ interface Props {
     userData: any;
     backpackUrl: any;
     templateCsvUrl: any;
+    canEdit: boolean;
+    canDelete: boolean;
 }
-export declare function EventDetailSectionHeader({ event, userData, backpackUrl, templateCsvUrl }: Props): h.JSX.Element;
+export declare function EventDetailSectionHeader({ event, userData, backpackUrl, templateCsvUrl, canEdit, canDelete }: Props): h.JSX.Element;
 export {};
