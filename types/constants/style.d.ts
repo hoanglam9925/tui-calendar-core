@@ -27,7 +27,6 @@ export declare const DEFAULT_EVENT_COLORS: {
     backgroundColor: string;
     dragBackgroundColor: string;
     borderColor: string;
-    shouldOpacity: string;
 };
 export declare const TIME_EVENT_CONTAINER_MARGIN_LEFT = 2;
 export declare const COLLAPSED_DUPLICATE_EVENT_WIDTH_PX = 9;

@@ -45,7 +45,6 @@ export const DEFAULT_EVENT_COLORS = {
   backgroundColor: '#a1b56c',
   dragBackgroundColor: '#a1b56c',
   borderColor: '#000',
-  shouldOpacity: '0',
 };
 
 export const TIME_EVENT_CONTAINER_MARGIN_LEFT = 2;

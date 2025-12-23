@@ -6,11 +6,6 @@ import type EventModel from '@src/model/eventModel';
 
 interface Props {
   event: EventModel;
-  userData: any;
-  backpackUrl: any;
-  templateCsvUrl: any;
-  canEdit: boolean;
-  canDelete: boolean;
 }
 
 const classNames = {
@@ -19,33 +14,15 @@ const classNames = {
   eventTitle: cls('event-title'),
 };
 
-export function EventDetailSectionHeader({ event, userData, backpackUrl, templateCsvUrl, canEdit, canDelete }: Props) {
-  const eventId = event?.id;
+export function EventDetailSectionHeader({ event }: Props) {
   return (
-    <div className='row'>
-      <div className='col-12'>
-          <div className={classNames.sectionHeader}>
-            <div className={classNames.eventTitle}>
-              <Template template="popupDetailTitle" param={event} as="span" />
-            </div>
-            <div className={classNames.content}>
-              <Template template="popupDetailDate" param={event} as="span" />
-            </div>
-          </div>
+    <div className={classNames.sectionHeader}>
+      <div className={classNames.eventTitle}>
+        <Template template="popupDetailTitle" param={event} as="span" />
       </div>
-      {/* <div className='col'>
-        <div class="d-print-none with-border float-right" style={{minWidth:"155px"}}>
-          <a href={backpackUrl + '/collab-registration?event=%5B"' + eventId + '"%5D'} class="btn btn-primary" data-style="zoom-in" style={{minWidth:"155px"}}><span class="ladda-label">See Registrations</span></a>
-        </div>
-        <div class="d-print-none with-border float-right" style={{minWidth:"155px"}}>
-          <a href={backpackUrl + '/registrationImportView?event_id=' + eventId } class="btn btn-primary" data-style="zoom-in" style={{minWidth:"155px"}}><span class="ladda-label">Bulk Upload (CSV)</span></a>
-        </div>
-        <div class="d-print-none with-border float-right" style={{minWidth:"155px"}}>
-          <a href={templateCsvUrl} class="btn btn-primary" data-style="zoom-in" style={{minWidth:"155px"}}><span class="ladda-label">Download Bulk Upload Template (CSV)</span></a>
-        </div>
-      </div> */}
-
+      <div className={classNames.content}>
+        <Template template="popupDetailDate" param={event} as="span" />
+      </div>
     </div>
-    
   );
 }

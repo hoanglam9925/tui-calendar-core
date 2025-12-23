@@ -86,7 +86,7 @@ function getStyles({
   const defaultMarginBottom = 2;
   const marginLeft = getMarginLeft(left);
 
-  const { color, backgroundColor, borderColor, dragBackgroundColor, shouldOpacity } = getEventColors(
+  const { color, backgroundColor, borderColor, dragBackgroundColor } = getEventColors(
     uiModel,
     calendarColor
   );
@@ -99,9 +99,8 @@ function getStyles({
     borderLeft: `3px solid ${borderColor}`,
     marginLeft,
     color,
-    background: isDraggingTarget ? dragBackgroundColor : backgroundColor,
-    opacity: shouldOpacity ? 0.5 : 1,
-    // opacity: isDraggingTarget ? 0.5 : 1,
+    backgroundColor: isDraggingTarget ? dragBackgroundColor : backgroundColor,
+    opacity: isDraggingTarget ? 0.5 : 1,
     zIndex: hasNextStartTime ? 1 : 0,
   };
 

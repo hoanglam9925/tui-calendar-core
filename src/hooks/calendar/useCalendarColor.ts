@@ -14,7 +14,6 @@ export function useCalendarColor(model?: EventModel): CalendarColor {
       borderColor: calendar?.borderColor,
       backgroundColor: calendar?.backgroundColor,
       dragBackgroundColor: calendar?.dragBackgroundColor,
-      shouldOpacity: calendar?.shouldOpacity,
     }),
     [calendar]
   );

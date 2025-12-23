@@ -29,7 +29,7 @@ export const templates: Template = {
         <span className={classNames} />
         <span
           style={{
-            background: model.backgroundColor,
+            backgroundColor: model.backgroundColor,
           }}
         >
           {stripTags(model.title)}
@@ -233,7 +233,7 @@ export const templates: Template = {
   },
 
   popupDetailDate({ isAllday, start, end }: EventObjectWithDefaultValues) {
-    const dayFormat = 'DD-MM-YYYY';
+    const dayFormat = 'YYYY.MM.DD';
     const timeFormat = 'hh:mm tt';
     const detailFormat = `${dayFormat} ${timeFormat}`;
     const startDate = toFormat(start, isAllday ? dayFormat : timeFormat);

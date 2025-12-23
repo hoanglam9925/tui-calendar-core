@@ -15,11 +15,8 @@ import { isLeftOutOfLayout, isTopOutOfLayout } from '@src/helpers/popup';
 import { useCalendarColor } from '@src/hooks/calendar/useCalendarColor';
 import { optionsSelector } from '@src/selectors';
 import { eventDetailPopupParamSelector } from '@src/selectors/popup';
-import { allOptionSelector } from '@src/selectors/options';
 import TZDate from '@src/time/date';
 import { isNil } from '@src/utils/type';
-import swal from 'sweetalert';
-import $ from 'jquery';
 
 import type { StyleProp } from '@t/components/common';
 import type { Rect } from '@t/store';
@@ -40,56 +37,31 @@ const classNames = {
 };
 
 function calculatePopupPosition(eventRect: Rect, layoutRect: Rect, popupRect: Rect) {
-  let top;
-  let left;
-
-  let $body = $('body');
-  const bodyClass = $body.attr("class");
-  const hasSidebar = bodyClass?.includes('sidebar-lg-show');
-  // has sidebar
-  if(hasSidebar) {
-    top = eventRect.top + eventRect.height / 2 - popupRect.height / 2;
-    left = eventRect.left + eventRect.width - 255;
-  }
-  // hide sidebar
-  else {
-    top = eventRect.top + eventRect.height / 2 - popupRect.height / 2;
-    left = eventRect.left + eventRect.width;
-  }
-  
+  let top = eventRect.top + eventRect.height / 2 - popupRect.height / 2;
+  let left = eventRect.left + eventRect.width;
 
   if (isTopOutOfLayout(top, layoutRect, popupRect)) {
     top = layoutRect.top + layoutRect.height - popupRect.height;
   }
 
-  const popupLeft = eventRect.left + eventRect.width;
-
-  const outLeftLayout = popupLeft + popupRect.width > layoutRect.left + layoutRect.width;
-  // const outLeftLayout = isLeftOutOfLayout(left, layoutRect, popupRect);
-  if (outLeftLayout) {
+  if (isLeftOutOfLayout(left, layoutRect, popupRect)) {
     left = eventRect.left - popupRect.width;
   }
 
   return [
-    Math.max(top, layoutRect.top) + window.scrollY - 110,
-    // Math.max(left, layoutRect.left) + window.scrollX - 225,
-    // left > layoutRect.left ? (Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 25 : -225)) : (Math.max(left, layoutRect.left) + window.scrollX - (outLeftLayout ? 255 : 25)),
-    Math.max(left, layoutRect.left) + window.scrollX - (hasSidebar ? (outLeftLayout ? 255 : 25) : (outLeftLayout ? 25 : 25)) ,
-    // layoutRect.left) + window.scrollX - (outLeftLayout ? 25 : -225),
+    Math.max(top, layoutRect.top) + window.scrollY,
+    Math.max(left, layoutRect.left) + window.scrollX,
   ];
 }
 
 function calculatePopupArrowPosition(eventRect: Rect, layoutRect: Rect, popupRect: Rect) {
-  let top = eventRect.top + eventRect.height / 2 + window.scrollY;
+  const top = eventRect.top + eventRect.height / 2 + window.scrollY;
   const popupLeft = eventRect.left + eventRect.width;
 
   const isOutOfLayout = popupLeft + popupRect.width > layoutRect.left + layoutRect.width;
-  // console.log({zxc: popupLeft + popupRect.width, qwe: layoutRect.left + layoutRect.width});
   const direction = isOutOfLayout
     ? DetailPopupArrowDirection.right
     : DetailPopupArrowDirection.left;
-
-  top = top - 110;
 
   return { top, direction };
 }
@@ -97,8 +69,6 @@ function calculatePopupArrowPosition(eventRect: Rect, layoutRect: Rect, popupRec
 export function EventDetailPopup() {
   const { useFormPopup } = useStore(optionsSelector);
   const popupParams = useStore(eventDetailPopupParamSelector);
-  const options = useStore(optionsSelector);
-  
   const { event, eventRect } = popupParams ?? {};
 
   const { showFormPopup, hideDetailPopup } = useDispatch('popup');
@@ -179,87 +149,26 @@ export function EventDetailPopup() {
     }
   };
 
-  const onClickDeleteButton = (url: any, token: any) => {
-    
-    const formdata = new FormData();
-    formdata.append("_token", token);
-
-    swal({
-		  title: "Warning",
-		  text: "Are you sure you want to delete this item?",
-		  icon: "warning",
-		  buttons: ["Cancel", "Delete"],
-		  dangerMode: true,
-		}).then((value) => {
-			if (value) {
-        fetch(url, {
-          method: 'DELETE',
-          body: formdata,
-          headers: {
-            'X-CSRF-TOKEN': token,
-          },
-        }).then((resp) => {
-          if (!resp.ok) {
-            swal({
-              title: "Error",
-              text: "Failed to delete item. Please try again.",
-              icon: "error",
-            });
-            return;
-          }
-          
-          eventBus.fire('beforeDeleteEvent', event.toEventObject());
-        }).catch((error) => {
-          console.debug({error});
-          swal({
-            title: "Error",
-            text: "Failed to delete item. Please try again.",
-            icon: "error",
-          });
-        });;
-      }		
-    });
-
+  const onClickDeleteButton = () => {
+    eventBus.fire('beforeDeleteEvent', event.toEventObject());
     hideDetailPopup();
   };
-  
-  const userData = options?.allOptions?.userData || null;
-  const token = options?.allOptions?.token;
-  const backpackUrl = options?.allOptions?.backpackUrl;
-  const templateCsvUrl = options?.allOptions?.templateCsvUrl;
-  const canEdit = options?.allOptions?.canEdit;
-  const canDelete = options?.allOptions?.canDelete;
 
-  const editUrl = `${backpackUrl}/collab-event/${event.id}/edit`;
-  const deleteURl = `${backpackUrl}/collab-event/${event.id}`;
-
-  const eventId = event?.id;
   return createPortal(
     <div role="dialog" className={classNames.popupContainer} ref={popupContainerRef} style={style}>
       <div className={classNames.detailContainer}>
-        <EventDetailSectionHeader event={event} userData={userData} backpackUrl={backpackUrl} templateCsvUrl={templateCsvUrl} canEdit={canEdit} canDelete={canDelete}/>
-        <EventDetailSectionDetail event={event} userData={userData} backpackUrl={backpackUrl} />
+        <EventDetailSectionHeader event={event} />
+        <EventDetailSectionDetail event={event} />
         {!isReadOnly && (
           <div className={classNames.sectionButton}>
-            <a href={editUrl}>
-              <button type="button" 
-                      className={classNames.editButton} 
-                      onClick={onClickEditButton} 
-                      disabled={!canEdit}
-                      style={{ opacity: canEdit ? 1 : 0.5, cursor: canEdit ? 'pointer' : 'not-allowed' }}>
-                <span className={classNames.editIcon} />
-                <span className={classNames.content}>
-                  <Template template="popupEdit" as="span" />
-                </span>
-              </button>
-            </a>
-            
+            <button type="button" className={classNames.editButton} onClick={onClickEditButton}>
+              <span className={classNames.editIcon} />
+              <span className={classNames.content}>
+                <Template template="popupEdit" as="span" />
+              </span>
+            </button>
             <div className={classNames.verticalLine} />
-            <button type="button" 
-                  className={classNames.deleteButton} 
-                  onClick={() => onClickDeleteButton(deleteURl, token)}
-                  disabled={!canDelete}
-                  style={{ opacity: canDelete ? 1 : 0.5, cursor: canDelete ? 'pointer' : 'not-allowed' }}>
+            <button type="button" className={classNames.deleteButton} onClick={onClickDeleteButton}>
               <span className={classNames.deleteIcon} />
               <span className={classNames.content}>
                 <Template template="popupDelete" as="span" />
@@ -267,24 +176,10 @@ export function EventDetailPopup() {
             </button>
           </div>
         )}
-        <div className="row">
-          <div className="d-print-none with-border col d-flex justify-content-center align-items-center" style={{minWidth:"155px"}}>
-            <a href={backpackUrl + '/collab-registration?event=%5B"' + eventId + '"%5D'} className="btn btn-primary" data-style="zoom-in" style={{width:"100%"}}><span class="ladda-label">See Registrations</span></a>
-          </div>
-          
-          <div className="d-print-none with-border d-flex col d-flex justify-content-center align-items-center" style={{minWidth:"155px"}}>
-            <a href={backpackUrl + '/registrationImportView?event_id=' + eventId } className="btn btn-primary" data-style="zoom-in" style={{width:"100%"}}><span class="ladda-label">Bulk Upload (CSV)</span></a>
-          </div>
-        </div>
-
-        <div className="d-print-none with-border d-flex justify-content-center align-items-center" style={{minWidth:"155px",marginTop:"10px",marginBottom:"10px"}}>
-          <a href={templateCsvUrl} class="btn btn-primary" data-style="zoom-in" style={{width:"100%"}}><span className="ladda-label">Download Bulk Upload Template (CSV)</span></a>
-        </div>
-
       </div>
       <div
         className={classNames.topLine}
-        style={{ background: calendarColor.backgroundColor }}
+        style={{ backgroundColor: calendarColor.backgroundColor }}
       />
       <div className={popupArrowClassName}>
         <div className={classNames.border} style={{ top: arrowTop }}>

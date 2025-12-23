@@ -453,7 +453,6 @@ export default abstract class CalendarCore implements EventBus<ExternalEventType
         usageStatistics: boolean;
         eventFilter: (event: EventObject) => boolean;
         timezone: import("../types/options").TimezoneOptions;
-        allOptions: any;
     };
     /**
      * Set options of calendar. For more information, see {@link https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/options.md|Options} in guide.
