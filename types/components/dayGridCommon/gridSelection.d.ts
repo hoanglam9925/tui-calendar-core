@@ -7,5 +7,5 @@ interface Props {
     weekDates: TZDate[];
     narrowWeekend: boolean;
 }
-export declare function GridSelection({ type, gridSelectionData, weekDates, narrowWeekend }: Props): h.JSX.Element | null;
+export declare function GridSelection({ type, gridSelectionData, weekDates, narrowWeekend }: Props): h.JSX.Element;
 export {};

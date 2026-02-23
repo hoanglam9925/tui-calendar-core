@@ -193,8 +193,6 @@ export function HorizontalEvent({
 
       const isClick = draggingState <= DraggingState.INIT;
       if (isClick && useDetailPopup && eventContainerRef.current) {
-        // console.log(uiModel);
-        
         showDetailPopup(
           {
             event: uiModel.model,
@@ -263,7 +261,7 @@ export function HorizontalEvent({
         className={classNames.eventBody}
         style={{
           ...eventItemStyle,
-          background: isDotEvent ? null : eventItemStyle.backgroundColor,
+          backgroundColor: isDotEvent ? null : eventItemStyle.backgroundColor,
           borderLeft: isDotEvent ? null : eventItemStyle.borderLeft,
         }}
         onMouseDown={handleMoveStart}
@@ -271,7 +269,7 @@ export function HorizontalEvent({
         {isDotEvent ? (
           <span
             className={classNames.eventDot}
-            style={{ background: eventItemStyle.backgroundColor }}
+            style={{ backgroundColor: eventItemStyle.backgroundColor }}
           />
         ) : null}
         <span className={classNames.eventTitle}>

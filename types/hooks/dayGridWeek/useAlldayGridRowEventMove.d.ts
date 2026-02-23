@@ -5,7 +5,7 @@ interface Params {
     gridPositionFinder: GridPositionFinder;
 }
 export declare function useAlldayGridRowEventMove({ rowStyleInfo, gridPositionFinder }: Params): {
-    movingEvent: import("../../model/eventUIModel").default | null;
-    movingLeft: number | null;
+    movingEvent: import("../../model/eventUIModel").default;
+    movingLeft: number;
 };
 export {};

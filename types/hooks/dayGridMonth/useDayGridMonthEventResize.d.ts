@@ -9,5 +9,5 @@ interface EventResizeHookParams {
     gridPositionFinder: GridPositionFinder;
     rowIndex: number;
 }
-export declare function useDayGridMonthEventResize({ dateMatrix, gridPositionFinder, renderedUIModels, cellWidthMap, rowIndex, }: EventResizeHookParams): [EventUIModel, string] | null;
+export declare function useDayGridMonthEventResize({ dateMatrix, gridPositionFinder, renderedUIModels, cellWidthMap, rowIndex, }: EventResizeHookParams): [EventUIModel, string];
 export {};

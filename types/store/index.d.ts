@@ -3,7 +3,10 @@ import type { EqualityChecker, InternalStoreAPI, StateSelector, StateWithActions
 export declare function createStoreContext<State extends StateWithActions>(): {
     StoreProvider: ({ children, store, }: PropsWithChildren<{
         store: InternalStoreAPI<State>;
-    }>) => import("preact").VNode<any>;
+    }>) => import("preact").VNode<{
+        value: InternalStoreAPI<State>;
+        children?: import("preact").ComponentChildren;
+    }>;
     useStore: <StateSlice>(selector: StateSelector<State, StateSlice>, equalityFn?: EqualityChecker<StateSlice>) => StateSlice;
     useInternalStore: () => InternalStoreAPI<State>;
 };

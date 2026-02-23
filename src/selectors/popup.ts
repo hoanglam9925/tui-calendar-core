@@ -13,4 +13,3 @@ export const eventDetailPopupParamSelector = (state: CalendarState) => {
 export const seeMorePopupParamSelector = (state: CalendarState) => {
   return state.popup[PopupType.SeeMore] as PopupParamMap[PopupType.SeeMore];
 };
-

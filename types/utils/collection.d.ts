@@ -26,7 +26,7 @@ export default class Collection<ItemType extends Item> {
      * @param {...function} filterFns - function filters
      * @returns {function} combined filter
      */
-    static or<ItemType>(...filterFns: Array<Filter<ItemType>>): (item: ItemType) => boolean;
+    static or<ItemType>(...filterFns: Array<Filter<ItemType>>): (item: ItemType) => any;
     /**
      * get model's unique id.
      * @param {object} item model instance.

@@ -5,5 +5,5 @@ interface Props {
     narrowWeekend: boolean;
     rowIndex: number;
 }
-export declare function GridSelectionByRow({ weekDates, narrowWeekend, rowIndex }: Props): h.JSX.Element | null;
+export declare function GridSelectionByRow({ weekDates, narrowWeekend, rowIndex }: Props): h.JSX.Element;
 export {};

@@ -1,1 +1,1 @@
-export declare function EventFormPopup(): import("preact").VNode<any> | null;
+export declare function EventFormPopup(): import("preact").VNode<any>;

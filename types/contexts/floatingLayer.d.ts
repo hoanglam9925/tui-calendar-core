@@ -8,5 +8,5 @@ interface FloatingLayers {
 }
 declare type FloatingLayerType = keyof FloatingLayers;
 export declare function FloatingLayerProvider({ children }: PropsWithChildren): h.JSX.Element;
-export declare const useFloatingLayer: (floatingLayerType: FloatingLayerType) => HTMLDivElement | null;
+export declare const useFloatingLayer: (floatingLayerType: FloatingLayerType) => HTMLDivElement;
 export {};

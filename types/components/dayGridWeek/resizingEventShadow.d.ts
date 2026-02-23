@@ -5,5 +5,5 @@ import type { GridPositionFinder } from "../../types/grid";
 declare type Props = Pick<ComponentProps<typeof AlldayGridRow>, 'weekDates' | 'gridColWidthMap'> & {
     gridPositionFinder: GridPositionFinder;
 };
-export declare function ResizingEventShadow({ weekDates, gridColWidthMap, gridPositionFinder }: Props): h.JSX.Element | null;
+export declare function ResizingEventShadow({ weekDates, gridColWidthMap, gridPositionFinder }: Props): h.JSX.Element;
 export {};

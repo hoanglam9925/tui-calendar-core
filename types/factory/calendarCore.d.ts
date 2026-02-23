@@ -212,7 +212,7 @@ export default abstract class CalendarCore implements EventBus<ExternalEventType
      * ]);
      */
     createEvents(events: EventObject[]): void;
-    protected getEventModel(eventId: string, calendarId: string): EventModel | null;
+    protected getEventModel(eventId: string, calendarId: string): EventModel;
     /**
      * Get an {@link EventObject} with event's id and calendar's id.
      *
@@ -225,7 +225,7 @@ export default abstract class CalendarCore implements EventBus<ExternalEventType
      *
      * console.log(event.title);
      */
-    getEvent(eventId: string, calendarId: string): import("../types/events").EventObjectWithDefaultValues | null;
+    getEvent(eventId: string, calendarId: string): import("../types/events").EventObjectWithDefaultValues;
     /**
      * Update an event.
      *
@@ -405,7 +405,7 @@ export default abstract class CalendarCore implements EventBus<ExternalEventType
      *
      * console.log(element);
      */
-    getElement(eventId: string, calendarId: string): Element | null;
+    getElement(eventId: string, calendarId: string): Element;
     /**
      * Set the theme of the calendar.
      *
@@ -453,7 +453,6 @@ export default abstract class CalendarCore implements EventBus<ExternalEventType
         usageStatistics: boolean;
         eventFilter: (event: EventObject) => boolean;
         timezone: import("../types/options").TimezoneOptions;
-        allOptions: any;
     };
     /**
      * Set options of calendar. For more information, see {@link https://github.com/nhn/tui.calendar/blob/main/docs/en/apis/options.md|Options} in guide.

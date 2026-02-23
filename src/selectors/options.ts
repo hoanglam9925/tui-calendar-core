@@ -11,5 +11,3 @@ export const showTimezoneCollapseButtonOptionSelector = (state: CalendarState) =
 
 export const timezonesCollapsedOptionSelector = (state: CalendarState) =>
   state.options.week.timezonesCollapsed ?? false;
-
-export const allOptionSelector = (state: CalendarState) => state;

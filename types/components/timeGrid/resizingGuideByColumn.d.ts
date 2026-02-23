@@ -6,4 +6,4 @@ export declare function ResizingGuideByColumn({ gridPositionFinder, totalUIModel
     totalUIModels: EventUIModel[][];
     columnIndex: number;
     timeGridData: TimeGridData;
-}): h.JSX.Element | null;
+}): h.JSX.Element;

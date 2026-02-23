@@ -21,7 +21,6 @@ export function CalendarExample({ options, containerHeight = 600, onInit }: Prop
 
   useLayoutEffect(() => {
     if (containerRef.current) {
-      
       calendarRef.current = new Calendar(containerRef.current, options);
 
       // For handling instance after initialization.

@@ -18,7 +18,7 @@ interface Props {
     resizerHeight?: number;
     resizerWidth?: number;
 }
-export declare const Panel: import("preact").FunctionalComponent<Omit<PropsWithChildren<Props>, "ref"> & {
-    ref?: import("preact").Ref<HTMLDivElement> | undefined;
+export declare const Panel: import("preact").FunctionalComponent<import("preact/compat").PropsWithoutRef<PropsWithChildren<Props>> & {
+    ref?: import("preact").Ref<HTMLDivElement>;
 }>;
 export {};

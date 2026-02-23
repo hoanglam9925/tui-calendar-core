@@ -4,5 +4,5 @@ import type { AlldayGridRow } from "./alldayGridRow";
 declare type Props = Pick<ComponentProps<typeof AlldayGridRow>, 'weekDates'> & {
     narrowWeekend: boolean;
 };
-export declare function AlldayGridSelection({ weekDates, narrowWeekend }: Props): h.JSX.Element | null;
+export declare function AlldayGridSelection({ weekDates, narrowWeekend }: Props): h.JSX.Element;
 export {};

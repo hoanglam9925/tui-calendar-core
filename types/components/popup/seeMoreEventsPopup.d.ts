@@ -1,1 +1,1 @@
-export declare function SeeMoreEventsPopup(): import("preact").VNode<any> | null;
+export declare function SeeMoreEventsPopup(): import("preact").VNode<any>;

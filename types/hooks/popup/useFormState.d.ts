@@ -34,5 +34,5 @@ declare type FormStateAction = {
     type: FormStateActionType.reset;
 };
 export declare type FormStateDispatcher = (action: FormStateAction) => void;
-export declare function useFormState(initCalendarId?: string): [EventObject, (action: FormStateAction) => void];
+export declare function useFormState(initCalendarId?: string): [EventObject, import("preact/hooks").Dispatch<FormStateAction>];
 export {};

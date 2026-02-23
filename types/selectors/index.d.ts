@@ -1,13 +1,13 @@
 import type { CalendarState } from "../types/store";
 export declare function topLevelStateSelector<State, Group extends keyof State>(group: Group): (state: State) => State[Group];
 export declare const popupSelector: (state: CalendarState) => {
-    seeMore: import("../types/store").SeeMorePopupParam | null;
-    form: import("../types/store").EventFormPopupParam | null;
-    detail: import("../types/store").EventDetailPopupParam | null;
+    seeMore: import("../types/store").SeeMorePopupParam;
+    form: import("../types/store").EventFormPopupParam;
+    detail: import("../types/store").EventDetailPopupParam;
 };
 export declare const calendarSelector: (state: CalendarState) => import("../types/events").CalendarData;
 export declare const weekViewLayoutSelector: (state: CalendarState) => {
-    lastPanelType: string | null;
+    lastPanelType: string;
     dayGridRows: {
         [x: string]: {
             height: number;
@@ -24,11 +24,11 @@ export declare const optionsSelector: (state: CalendarState) => Omit<Required<im
     gridSelection: import("../types/options").GridSelectionOptions;
 };
 export declare const dndSelector: (state: CalendarState) => {
-    draggingItemType: import("../types/drag").DraggingTypes<any> | null;
+    draggingItemType: import("../types/drag").DraggingTypes<any>;
     draggingState: import("../slices/dnd").DraggingState;
-    initX: number | null;
-    initY: number | null;
-    x: number | null;
-    y: number | null;
-    draggingEventUIModel: import("../model/eventUIModel").default | null;
+    initX: number;
+    initY: number;
+    x: number;
+    y: number;
+    draggingEventUIModel: import("../model/eventUIModel").default;
 };

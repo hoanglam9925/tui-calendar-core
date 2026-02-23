@@ -3,7 +3,10 @@ import type { CommonTheme, MonthTheme, ThemeDispatchers, ThemeState, ThemeStore,
 export declare const initThemeStore: (themeOptions?: Options['theme']) => import("../types/store").InternalStoreAPI<ThemeStore>;
 declare const ThemeProvider: ({ children, store, }: import("../types/components/common").PropsWithChildren<{
     store: import("@t/store").InternalStoreAPI<ThemeStore>;
-}>) => import("preact").VNode<any>, useInternalThemeStore: () => import("../types/store").InternalStoreAPI<ThemeStore>, useTheme: <StateSlice>(selector: import("../types/store").StateSelector<ThemeStore, StateSlice>, equalityFn?: import("../types/store").EqualityChecker<StateSlice>) => StateSlice;
+}>) => import("preact").VNode<{
+    value: import("@t/store").InternalStoreAPI<ThemeStore>;
+    children?: import("preact").ComponentChildren;
+}>, useInternalThemeStore: () => import("../types/store").InternalStoreAPI<ThemeStore>, useTheme: <StateSlice>(selector: import("../types/store").StateSelector<ThemeStore, StateSlice>, equalityFn?: import("../types/store").EqualityChecker<StateSlice>) => StateSlice;
 export { ThemeProvider, useInternalThemeStore, useTheme };
 export declare function useThemeDispatch(): ThemeDispatchers;
 export declare function useCommonTheme(): CommonTheme;

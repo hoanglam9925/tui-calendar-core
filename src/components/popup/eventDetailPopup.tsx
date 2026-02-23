@@ -15,11 +15,8 @@ import { isLeftOutOfLayout, isTopOutOfLayout } from '@src/helpers/popup';
 import { useCalendarColor } from '@src/hooks/calendar/useCalendarColor';
 import { optionsSelector } from '@src/selectors';
 import { eventDetailPopupParamSelector } from '@src/selectors/popup';
-import { allOptionSelector } from '@src/selectors/options';
 import TZDate from '@src/time/date';
 import { isNil } from '@src/utils/type';
-import swal from 'sweetalert';
-
 
 import type { StyleProp } from '@t/components/common';
 import type { Rect } from '@t/store';
@@ -72,8 +69,6 @@ function calculatePopupArrowPosition(eventRect: Rect, layoutRect: Rect, popupRec
 export function EventDetailPopup() {
   const { useFormPopup } = useStore(optionsSelector);
   const popupParams = useStore(eventDetailPopupParamSelector);
-  const options = useStore(optionsSelector);
-  
   const { event, eventRect } = popupParams ?? {};
 
   const { showFormPopup, hideDetailPopup } = useDispatch('popup');
@@ -154,60 +149,26 @@ export function EventDetailPopup() {
     }
   };
 
-  const onClickDeleteButton = (url: any, token: any) => {
-    
-    const formdata = new FormData();
-    formdata.append("_token", token);
-
-    swal({
-		  title: "Warning",
-		  text: "Are you sure you want to delete this item?",
-		  icon: "warning",
-		  buttons: ["Cancel", "Delete"],
-		  dangerMode: true,
-		}).then((value) => {
-			if (value) {
-        fetch(url, {
-          method: 'DELETE',
-          body: formdata,
-          headers: {
-            'X-CSRF-TOKEN': token,
-          },
-        }).then((resp) => {
-          eventBus.fire('beforeDeleteEvent', event.toEventObject());
-        });
-      }		
-    });
-
+  const onClickDeleteButton = () => {
+    eventBus.fire('beforeDeleteEvent', event.toEventObject());
     hideDetailPopup();
   };
-  
-  const userData = options?.allOptions?.userData || null;
-  const token = options?.allOptions?.token;
-  const backpackUrl = options?.allOptions?.backpackUrl;
-  console.log({options});
-
-  const editUrl = `${backpackUrl}/collab-event/${event.id}/edit`;
-  const deleteURl = `${backpackUrl}/collab-event/${event.id}`;
 
   return createPortal(
     <div role="dialog" className={classNames.popupContainer} ref={popupContainerRef} style={style}>
       <div className={classNames.detailContainer}>
         <EventDetailSectionHeader event={event} />
-        <EventDetailSectionDetail event={event} userData={userData} backpackUrl={backpackUrl} />
+        <EventDetailSectionDetail event={event} />
         {!isReadOnly && (
           <div className={classNames.sectionButton}>
-            <a href={editUrl}>
-              <button type="button" className={classNames.editButton} onClick={onClickEditButton}>
-                <span className={classNames.editIcon} />
-                <span className={classNames.content}>
-                  <Template template="popupEdit" as="span" />
-                </span>
-              </button>
-            </a>
-            
+            <button type="button" className={classNames.editButton} onClick={onClickEditButton}>
+              <span className={classNames.editIcon} />
+              <span className={classNames.content}>
+                <Template template="popupEdit" as="span" />
+              </span>
+            </button>
             <div className={classNames.verticalLine} />
-            <button type="button" className={classNames.deleteButton} onClick={() => onClickDeleteButton(deleteURl, token)}>
+            <button type="button" className={classNames.deleteButton} onClick={onClickDeleteButton}>
               <span className={classNames.deleteIcon} />
               <span className={classNames.content}>
                 <Template template="popupDelete" as="span" />
@@ -218,7 +179,7 @@ export function EventDetailPopup() {
       </div>
       <div
         className={classNames.topLine}
-        style={{ background: calendarColor.backgroundColor }}
+        style={{ backgroundColor: calendarColor.backgroundColor }}
       />
       <div className={popupArrowClassName}>
         <div className={classNames.border} style={{ top: arrowTop }}>

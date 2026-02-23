@@ -28,7 +28,6 @@ export default class EventModel implements Omit<EventObjectWithDefaultValues, '_
     borderColor?: string;
     customStyle: {};
     raw: any;
-    userData?: any;
     /**
      * whether the event includes multiple dates
      */
@@ -75,10 +74,10 @@ export default class EventModel implements Omit<EventObjectWithDefaultValues, '_
     collidesWith(event: EventModel | EventUIModel, usingTravelTime?: boolean): boolean;
     toEventObject(): EventObjectWithDefaultValues;
     getColors(): {
-        color: string | undefined;
-        backgroundColor: string | undefined;
-        dragBackgroundColor: string | undefined;
-        borderColor: string | undefined;
+        color: string;
+        backgroundColor: string;
+        dragBackgroundColor: string;
+        borderColor: string;
     };
 }
 export declare function isTimeEvent({ model }: EventUIModel): boolean;

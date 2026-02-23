@@ -7,5 +7,5 @@ declare type Props = Pick<ComponentProps<typeof AlldayGridRow>, 'rowStyleInfo'> 
 };
 export declare function MovingEventShadow({ rowStyleInfo, gridPositionFinder, }: Pick<Props, 'rowStyleInfo'> & {
     gridPositionFinder: GridPositionFinder;
-}): h.JSX.Element | null;
+}): h.JSX.Element;
 export {};

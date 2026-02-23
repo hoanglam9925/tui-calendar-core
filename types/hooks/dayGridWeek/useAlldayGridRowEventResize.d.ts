@@ -7,7 +7,7 @@ interface Params {
     gridPositionFinder: GridPositionFinder;
 }
 export declare function useAlldayGridRowEventResize({ weekDates, gridColWidthMap, gridPositionFinder, }: Params): {
-    resizingEvent: EventUIModel | null;
-    resizingWidth: string | null;
+    resizingEvent: EventUIModel;
+    resizingWidth: string;
 };
 export {};

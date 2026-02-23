@@ -3,4 +3,4 @@ import type { GridPositionFinder, TimeGridData } from "../../types/grid";
 export declare function MovingEventShadow({ gridPositionFinder, timeGridData, }: {
     gridPositionFinder: GridPositionFinder;
     timeGridData: TimeGridData;
-}): h.JSX.Element | null;
+}): h.JSX.Element;

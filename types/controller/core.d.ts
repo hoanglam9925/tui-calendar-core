@@ -49,7 +49,7 @@ export declare function positionUIModels(start: TZDate, end: TZDate, matrices: M
  * @returns {?EventUIModel} return ui model when third parameter is
  *  ui model
  */
-export declare function limitRenderRange(start: TZDate, end: TZDate, uiModelColl: Collection<EventUIModel> | EventUIModel): EventUIModel | null;
+export declare function limitRenderRange(start: TZDate, end: TZDate, uiModelColl: Collection<EventUIModel> | EventUIModel): EventUIModel;
 /**
  * Convert event model collection to ui model collection.
  * @param {Collection} eventCollection - collection of event model

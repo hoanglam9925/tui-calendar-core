@@ -4,5 +4,5 @@ interface Props {
     columnIndex: number;
     timeGridRows: TimeGridRow[];
 }
-export declare function GridSelectionByColumn({ columnIndex, timeGridRows }: Props): h.JSX.Element | null;
+export declare function GridSelectionByColumn({ columnIndex, timeGridRows }: Props): h.JSX.Element;
 export {};

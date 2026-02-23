@@ -6,16 +6,16 @@ declare type GridSelectionHelper<SelectionCalculator extends (gridSelection: Gri
     getDateFromCollection: RequiredGridSelectionHookParams['dateGetter'];
     calculateSelection: SelectionCalculator;
 };
-declare function calculateTimeGridSelectionByCurrentIndex(timeGridSelection: GridSelectionData | null, columnIndex: number, maxRowIndex: number): TimeGridSelectionDataByCol | null;
+declare function calculateTimeGridSelectionByCurrentIndex(timeGridSelection: GridSelectionData | null, columnIndex: number, maxRowIndex: number): TimeGridSelectionDataByCol;
 export declare const timeGridSelectionHelper: GridSelectionHelper<typeof calculateTimeGridSelectionByCurrentIndex>;
 declare function calculateDayGridMonthSelectionByCurrentIndex(gridSelection: GridSelectionData | null, currentIndex: number, weekLength: number): {
     startCellIndex: number;
     endCellIndex: number;
-} | null;
+};
 export declare const dayGridMonthSelectionHelper: GridSelectionHelper<typeof calculateDayGridMonthSelectionByCurrentIndex>;
 declare function calculateAlldayGridRowSelectionByCurrentIndex(gridSelection: GridSelectionData | null): {
     startCellIndex: number;
     endCellIndex: number;
-} | null;
+};
 export declare const alldayGridRowSelectionHelper: GridSelectionHelper<typeof calculateAlldayGridRowSelectionByCurrentIndex>;
 export {};

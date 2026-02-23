@@ -5,6 +5,6 @@ export declare function useTimeGridEventMove({ gridPositionFinder, timeGridData,
     gridPositionFinder: GridPositionFinder;
     timeGridData: TimeGridData;
 }): {
-    movingEvent: EventUIModel | null;
-    nextStartTime: TZDate | null;
+    movingEvent: EventUIModel;
+    nextStartTime: TZDate;
 };

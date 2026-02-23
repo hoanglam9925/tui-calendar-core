@@ -6,5 +6,5 @@ declare type Props = Pick<ComponentProps<typeof DayGridMonth>, 'dateMatrix' | 'r
     rowIndex: number;
     gridPositionFinder: GridPositionFinder;
 };
-export declare function MovingEventShadow({ dateMatrix, gridPositionFinder, rowInfo, rowIndex }: Props): h.JSX.Element | null;
+export declare function MovingEventShadow({ dateMatrix, gridPositionFinder, rowInfo, rowIndex }: Props): h.JSX.Element;
 export {};

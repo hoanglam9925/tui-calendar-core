@@ -12,10 +12,10 @@ export declare const monthMoreViewSelector: (theme: ThemeState) => {
     backgroundColor: string;
     border: string;
     boxShadow: string;
-    width: number | null;
-    height: number | null;
+    width: number;
+    height: number;
 };
 export declare const monthGridCellSelector: (theme: ThemeState) => {
-    headerHeight: number | null;
-    footerHeight: number | null;
+    headerHeight: number;
+    footerHeight: number;
 };

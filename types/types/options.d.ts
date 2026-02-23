@@ -70,7 +70,6 @@ export interface Options {
     usageStatistics?: boolean;
     eventFilter?: (event: EventObject) => boolean;
     timezone?: TimezoneOptions;
-    allOptions?: any;
 }
 export interface ViewInfoUserInput {
     component: ComponentType<any>;

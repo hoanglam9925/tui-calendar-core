@@ -8,5 +8,5 @@ declare type Props = Pick<ComponentProps<typeof DayGridMonth>, 'dateMatrix' | 'c
     renderedUIModels: ReturnType<typeof getRenderedEventUIModels>[];
     rowIndex: number;
 };
-export declare function ResizingGuideByRow({ dateMatrix, cellWidthMap, gridPositionFinder, renderedUIModels, rowIndex, }: Props): h.JSX.Element | null;
+export declare function ResizingGuideByRow({ dateMatrix, cellWidthMap, gridPositionFinder, renderedUIModels, rowIndex, }: Props): h.JSX.Element;
 export {};
