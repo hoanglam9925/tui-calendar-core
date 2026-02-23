@@ -28,6 +28,7 @@ export default class EventModel implements Omit<EventObjectWithDefaultValues, '_
     borderColor?: string;
     customStyle: {};
     raw: any;
+    userData?: any;
     /**
      * whether the event includes multiple dates
      */

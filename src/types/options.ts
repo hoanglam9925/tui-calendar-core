@@ -63,6 +63,7 @@ export interface CalendarColor {
   backgroundColor?: string;
   dragBackgroundColor?: string;
   borderColor?: string;
+  shouldOpacity?: string;
 }
 
 export interface CalendarInfo extends CalendarColor {
@@ -86,6 +87,7 @@ export interface Options {
   usageStatistics?: boolean;
   eventFilter?: (event: EventObject) => boolean;
   timezone?: TimezoneOptions;
+  allOptions?: any;
 }
 
 export interface ViewInfoUserInput {

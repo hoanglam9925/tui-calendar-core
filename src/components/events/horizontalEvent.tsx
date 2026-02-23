@@ -54,7 +54,7 @@ function getEventItemStyle({
   calendarColor: CalendarColor;
 }) {
   const { exceedLeft, exceedRight } = uiModel;
-  const { color, backgroundColor, dragBackgroundColor, borderColor } = getEventColors(
+  const { color, backgroundColor, dragBackgroundColor, borderColor, shouldOpacity } = getEventColors(
     uiModel,
     calendarColor
   );
@@ -67,7 +67,7 @@ function getEventItemStyle({
     overflow: 'hidden',
     height: eventHeight,
     lineHeight: toPx(eventHeight),
-    opacity: isDraggingTarget ? 0.5 : 1,
+    opacity: shouldOpacity === '1' ? 0.5 : 1,
   };
   const margins = getMargins(flat);
 
@@ -193,6 +193,8 @@ export function HorizontalEvent({
 
       const isClick = draggingState <= DraggingState.INIT;
       if (isClick && useDetailPopup && eventContainerRef.current) {
+        // console.log(uiModel);
+        
         showDetailPopup(
           {
             event: uiModel.model,
@@ -261,7 +263,7 @@ export function HorizontalEvent({
         className={classNames.eventBody}
         style={{
           ...eventItemStyle,
-          backgroundColor: isDotEvent ? null : eventItemStyle.backgroundColor,
+          background: isDotEvent ? null : eventItemStyle.backgroundColor,
           borderLeft: isDotEvent ? null : eventItemStyle.borderLeft,
         }}
         onMouseDown={handleMoveStart}
@@ -269,7 +271,7 @@ export function HorizontalEvent({
         {isDotEvent ? (
           <span
             className={classNames.eventDot}
-            style={{ backgroundColor: eventItemStyle.backgroundColor }}
+            style={{ background: eventItemStyle.backgroundColor }}
           />
         ) : null}
         <span className={classNames.eventTitle}>

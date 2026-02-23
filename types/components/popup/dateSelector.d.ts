@@ -7,7 +7,7 @@ interface Props {
     isAllday?: boolean;
     formStateDispatch: FormStateDispatcher;
 }
-export declare const DateSelector: import("preact").FunctionalComponent<Omit<Props, "ref"> & {
+export declare const DateSelector: import("preact").FunctionalComponent<import("preact/compat").PropsWithoutRef<Props> & {
     ref?: import("preact").Ref<DateRangePicker> | undefined;
 }>;
 export {};
