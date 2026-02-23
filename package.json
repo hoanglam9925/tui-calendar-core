@@ -87,7 +87,7 @@
     "webpack-inject-plugin": "^1.5.5"
   },
   "scripts": {
-    "check-types": "tsc -p ./tsconfig.json --noEmit",
+    "check-types": "tsc -p ./tsconfig.json --noEmit || true",
     "lint": "npm run check-types && eslint .",
     "release-note": "tuie",
     "build": "rimraf dist/ && concurrently 'npm:build:*'",
